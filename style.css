@@ -1,0 +1,22 @@
+.container-fluid{
+    outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: rgb(0, 0, 0);
+  width: 100%;
+  font-size: 15px;
+   
+}
+
+#userSIEmail, #userSIPassword{
+    margin-bottom: 20px;
+    height: 30px;
+    padding: 20px;
+}
+ 
+#userFullName, #userSurname, #userEmail, #userPassword{
+    margin-bottom: 20px;
+    height: 5px;
+    padding: 20px;
+    width: 200px;
+}

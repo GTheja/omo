@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Material Design Lite -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="home.css">
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+   
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script> -->
+    
+    <!-- Material Design icon font -->
+    <script src="sweetalert2.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
+</head>
+
+
+    <body>
+
+    <form>
+        <progress value="0" id="uploader" max="100">0%</progress><br><br>
+        // get the file from user
+        <input id="photo" class="file" type="file" name="mainimage" value="" onchange="getfile()"><br><br>
+        // submit the chosen file
+        <button id="submit_link" type="submit" name="button">Save</button>
+    </form>
+
+
+    
+    
+
+    <script>
+        var firebaseConfig = {
+                apiKey: "AIzaSyC3WGLvq4m3U9mhFvhiS5TjGybawAbUYCs",
+                authDomain: "sosoci-2bec7.firebaseapp.com",
+                databaseURL: "https://sosoci-2bec7.firebaseio.com",
+                projectId: "sosoci-2bec7",
+                storageBucket: "sosoci-2bec7.appspot.com",
+                messagingSenderId: "229304922552",
+                appId: "1:229304922552:web:92e5b806ef58586eaf5f4d",
+                measurementId: "G-8P6X4V9TRS"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+
+           //function to save file
+
+            var selectedFile;
+                function getfile() {
+                    var pic = document.getElementById("photo");
+
+                    // selected file is that file which user chosen by html form 
+                    selectedFile = pic.files[0];
+
+                    // make save button disabled for few seconds that has id='submit_link' 
+                    document.getElementById('submit_link').setAttribute('disabled', 'true');
+                    myfunction(); // call below written function 
+                }
+                function myfunction() {
+                    // select unique name for everytime when image uploaded 
+                    // Date.now() is function that give current timestamp 
+                    var name = "123" + Date.now();
+
+                    // make ref to your firebase storage and select images folder 
+                    var storageRef = firebase.storage().ref('/images/' + name);
+
+                    // put file to firebase  
+                    var uploadTask = storageRef.put(selectedFile);
+
+                    // all working for progress bar that in html 
+                    // to indicate image uploading... report 
+                    uploadTask.on('state_changed', function (snapshot) {
+                        var progress =
+                            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        var uploader = document.getElementById('uploader');
+                        uploader.value = progress;
+                        switch (snapshot.state) {
+                            case firebase.storage.TaskState.PAUSED:
+                                console.log('Upload is paused');
+                                break;
+                            case firebase.storage.TaskState.RUNNING:
+                                console.log('Upload is running');
+                                break;
+                        }
+                    }, function (error) {
+                        console.log(error);
+                    }, function () {
+
+                        // get the uploaded image url back 
+                        uploadTask.snapshot.ref.getDownloadURL().then(
+                            function (downloadURL) {
+
+                                // You get your url from here 
+                                console.log('File available at', downloadURL);
+
+                                // print the image url  
+                                console.log(downloadURL);
+                                document.getElementById('submit_link').removeAttribute('disabled');
+                            });
+                    });
+                }; 
+
+       
+       
+
+    </script>
+
+    
+    
+    
+
+</body>
+</html>
