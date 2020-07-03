@@ -11,8 +11,10 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <!-- Sweet Alert JavaScript -->
     <script src="sweetalert2.js"></script>
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
@@ -38,6 +40,7 @@
 
 
 </head>
+
 <body class="bg-light">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <header class="mdl-layout__header">
@@ -60,44 +63,89 @@
                 <div class="container">
 
                     <div class="sidebar">
-                        <a class="active" href="profile.html">Home</a>
-                        <a href="news.html">News</a>
-                        <a href="#contact">Contact</a>
-                        <a href="#about">About</a>
+                        <a class="fa fa-home" style="font-size:15px" href="profile.html">Home</a>
+                        <a class="fa fa-newspaper-o" style="font-size:15px" href="#contact">News</a>
+                        <a class="fa fa-envelope-o" style="font-size:15px" href="#about">Message</a>
+                        <a class="fa fa-user-o" style="font-size:15px" href="#about">Friends</a>
+                        <a class="fa fa-group" style="font-size:15px" href="#about">Communties</a>
+                        <a class="fa fa-file-picture-o" style="font-size:15px" href="job.html">Photos</a>
+                        <a class="fa fa-film" style="font-size:15px" href="#about">Vidoes</a>
+                        <a class="fa fa-gear" style="font-size:15px" href="news.html">Settings</a>
                     </div>
 
                 </div>
-                <div id="editProfileForm">
-                    <h2 class="h2 text-center text-dark mb-3">Edit Profile</h2>
-                    <div class="form-group">
-                        <label for="userFullName">First Name<span class="text-danger ml-1">*</span></label>
-                        <input type="text" class="form-control" id="userFullName" onblur="checkUserFullName()" placeholder="First Name">
+                <div class="content">
+                    
+                   
+                </div>
+                <div class="card">
+                    <div id="profileSection">
+                        <input type="file" onchange="uploadFile()" id="files" name="files[]" multiple />
+
+                        <img id='image' class='ui image centered' style="border-radius:0%" height="200px" width="200px">
+                        <h1><span class="h3" id="userPfFullName">Name</span>
+                            <span class="h3" id="userPfSurname">surname</span></h1>
+                        <p id="userBirthday">Date of Birth</p>
+                        <p id="userPfBio">Profile biography</p>
+                        <a href="news.html">Edit Profile<small></small></a>
                     </div>
-                    <div class="form-group">
-                        <label for="userSurname">Last name<span class="text-danger ml-1">*</span></label>
-                        <input type="text" class="form-control" id="userSurname" onblur="checkUserSurname()"
-                            placeholder="Last Name">
-                        <small id="userSurnameError" class="form-text text-danger">Please fill the
-                            field.</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="birthday">Birthday:<span class="text-danger ml-1">*</span></label>
-                        <input type="date" id="birthday" name="birthday">
-                    </div>
-                    <div class="form-group">
-                        <label for="userBio">Biography<span class="text-danger ml-1">*</span></label>
-                        <textarea class="form-control" id="userBio" rows="4" onblur="checkUserBio()"></textarea>
-                    </div>
-                    <button type="button" class="btn btn-outline-primary btn-block text-uppercase mb-3"
-                        onclick="saveProfile()">Save</button>
-                    <button type="button" class="btn btn-outline-secondary btn-block text-uppercase"
-                        onclick="hideEditProfileForm()">Cancel</button>
                 </div>
             </div>
     </div>
     </main>
     </div>
 
+
+
+
+
+
+
+
+    <!-- Page content -->
+
+
+
+
+    <!-- <div id="editProfileForm">
+        <h2 class="h2 text-center text-dark mb-3">Edit Profile</h2>
+        <div class="form-group">
+            <label for="userFullName">Name<span class="text-danger ml-1">*</span></label>
+            <input type="text" class="form-control" id="userFullName" onblur="checkUserFullName()" placeholder="Firma Adı">
+        </div>
+        <div class="form-group">
+            <label for="userSurname">Surname<span class="text-danger ml-1">*</span></label>
+            <input type="text" class="form-control" id="userSurname" onblur="checkUserSurname()"
+                placeholder="Firma Faliyet Alanı">
+            <small id="userSurnameError" class="form-text text-danger">Please fill the
+                field.</small>
+        </div>
+        <div class="form-group">
+            <label for="userFacebook">Facebook</label>
+            <input type="text" class="form-control" id="userFacebook" placeholder="https://www.facebook.com/">
+        </div>
+        <div class="form-group">
+            <label for="userTwitter">Twitter</label>
+            <input type="text" class="form-control" id="userTwitter" placeholder="https://www.twitter.com/">
+        </div>
+        <div class="form-group">
+            <label for="userGooglePlus">Google Plus</label>
+            <input type="text" class="form-control" id="userGooglePlus" placeholder="https://plus.google.com/">
+        </div>
+        <div class="form-group">
+            <label for="userBio">Biography<span class="text-danger ml-1">*</span></label>
+            <textarea class="form-control" id="userBio" rows="4" onblur="checkUserBio()"></textarea>
+        </div>
+        <button type="button" class="btn btn-outline-primary btn-block text-uppercase mb-3"
+            onclick="saveProfile()">Save</button>
+        <button type="button" class="btn btn-outline-secondary btn-block text-uppercase"
+            onclick="hideEditProfileForm()">Cancel</button>
+    </div> -->
+    </div>
+    </div>
+    <!-- </div> -->
+    </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -118,6 +166,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
 
 
 
@@ -125,8 +174,6 @@
     <!-- Custom JavaScript -->
     <script src="firebase.js"></script>
     <script src="app.js"></script>
-    
-    
 </body>
 
 </html>

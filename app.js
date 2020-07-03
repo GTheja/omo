@@ -109,7 +109,7 @@ function signUp() {
                 userEmail: userEmail,
                 userBio: "User biography",
                 birthday: "user Birthday",
-                Newsfeed: "user news"
+                Newsfeed: "news feed",
             }
             firebaseRef.child(uid).set(userData);
             swal('Your Account Created', 'Your account was created successfully, you can log in now.',
@@ -217,7 +217,10 @@ firebase.auth().onAuthStateChanged((user) => {
             document.getElementById("userPfSurname").innerHTML = dataSnapShot.val().userSurname;
             document.getElementById("userPfBio").innerHTML = dataSnapShot.val().userBio;
             document.getElementById("userBirthday").innerHTML=dataSnapShot.val().birthday;
-            document.getElementById("newpost").innerHTML = dataSnapShot.val().Newsfeed;
+        })
+        let firebaseRefKe = firebase.database().ref().child("news-feed");
+        firebaseRefKe.on('child_added', (dataSnapShot) => {    
+            document.getElementById("newsspost").innerHTML = dataSnapShot.val().Newsfeed;
         })
     } else {
         //   No user is signed in.
@@ -242,22 +245,21 @@ function hideEditProfileForm() {
     document.getElementById("editProfileForm").style.display = "none";
 }
 // xxxxxxxxxx Save profile and update database xxxxxxxxxx
-var Newsfeed = document.getElementById("Newsfeed").innerHTML;
-document.getElementById("Newsfeed").value = Newsfeed;
-function postme(){
+ var Newsfeed = document.getElementById("Newsfeed").innerHTML
+ document.getElementById("Newsfeed").value = Newsfeed;
+
+function postme() {
     let Newsfeed = document.getElementById("Newsfeed").value
     let user = firebase.auth().currentUser;
     let uid;
-    if(user != null){
-        uid = user.uid
+    if (user != null) {
+        uid = user.uid;
     }
-    var firebaseRef = firebase.database().ref();
+    var firebaseRef = firebase.database().ref().child('news-feed');
     var userData = {
-        Newsfeed: Newsfeed,
-       
+        Newsfeed: Newsfeed
     }
     firebaseRef.child(uid).set(userData);
-    
 }
 
 function saveProfile() {
